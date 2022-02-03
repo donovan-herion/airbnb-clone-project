@@ -18,7 +18,7 @@ function Header() {
           ></Image>
       </div>
 
-      <div className="flex items-center rounded-full py-2 md:border-2 md:shadow-sm">
+      <div className="flex items-center rounded-full py-2 border-2 md:shadow-sm">
         <input
           className="flex-grow bg-transparent pl-5 text-gray-600 placeholder-gray-400 outline-none"
           type="text"
@@ -29,7 +29,7 @@ function Header() {
 
       <div className="flex items-center justify-end space-x-4 text-gray-500">
         <p className="hidden md:inline">Become a host</p>
-        <GlobeAltIcon className="h-6 cursor-pointer" />
+        <GlobeAltIcon className="hidden md:inline h-6 cursor-pointer" />
 
         <div className="b-2 flex justify-between rounded-full border-2 p-2">
           <MenuIcon className="h-6" />
