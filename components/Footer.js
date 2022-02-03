@@ -1,5 +1,6 @@
 function Footer() {
     return (
+        <div className="max-w-[100vw] overflow-x-hidden">
         <footer className="max-w-[1300px] relative z-20 mx-auto px-8 sm:px-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-y-10 lg:px-32 py-14 bg-gray-100 text-gray-600">
             <div className="bg-gray-100 absolute -z-10 left-1/2 w-screen h-full -translate-x-1/2"></div>
             <div className="space-y-4 text-xs text-gray-800">
@@ -41,6 +42,7 @@ function Footer() {
 
             
         </footer>
+        </div>
     )
 }
 

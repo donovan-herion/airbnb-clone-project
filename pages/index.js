@@ -12,7 +12,7 @@ export default function Home({exploreData, cardsData}) {
     console.log('don\'t forget to do this')
   }
   return (
-    <div className="max-w-[100vw] overflow-x-hidden">
+   <>
       <Head>
         <title>Airbnb Clone</title>
         <link
@@ -70,7 +70,7 @@ export default function Home({exploreData, cardsData}) {
 
       </main>
       <Footer />
-    </div>
+    </>
   )
 }
 
