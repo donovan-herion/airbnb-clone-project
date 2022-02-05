@@ -3,21 +3,13 @@ import ReactMapGL, {Marker, Popup} from 'react-map-gl';
 import {useState} from 'react';
 import getCenter from "geolib/es/getCenter"
 import { set } from 'date-fns';
+import { StarIcon } from '@heroicons/react/solid';
 
 export default function Map({searchResults}) {
 
     const [selectedLocation, setSelectedLocation] = useState({})
 
-    const [viewport, setViewport] = useState({
-        width: '100%',
-        height: '100%',
-        longitude: 37.7577,
-        latitude: 15,
-        zoom: 11
-    })
-
     //transform the search results object into the {latitude: xx, longitude: xx} object
-
     const coordinates = searchResults.map((result) => ({
         longitude: result.long,
         latitude: result.lat,
@@ -25,6 +17,15 @@ export default function Map({searchResults}) {
 
     //the latitude and longitude of the center of locations coordinates
     const center = getCenter(coordinates);
+
+    const [viewport, setViewport] = useState({
+        width: '100%',
+        height: '100%',
+        longitude: center.longitude,
+        latitude: center.latitude,
+        zoom: 11
+    })
+
 
     console.log(center)
    
@@ -40,8 +41,8 @@ export default function Map({searchResults}) {
                     <Marker
                         longitude={result.long}
                         latitude={result.lat}
-                        offsetLeft={-20}
-                        offsetTop={-10}
+                        offsetLeft={-10}
+                        offsetTop={0}
                     >
                        
                         <p onClick={() => setSelectedLocation(result)} className="cursor-pointer text-2xl" aria-label='push-pin' role="img">
@@ -56,8 +57,17 @@ export default function Map({searchResults}) {
                         closeOnClick={true}
                         longitude={result.long}
                         latitude={result.lat}
+                        className="z-50"
                         >
-                        {result.title}
+                            <p className="p-2 flex items-center justify-center  leading-none">
+                            <StarIcon className="h-5 text-red-400" />  {result.star}
+                            </p>
+
+                            <p className="mb-2">
+                                {result.title}
+                            </p>
+
+                            <button className="button bg-red-400 block mx-auto text-white">Book Now {result.price}</button>
                         </Popup>
                     ) : (
                         false

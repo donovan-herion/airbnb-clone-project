@@ -5,11 +5,50 @@ import SmallCard from '../components/SmallCard'
 import MediumCard from '../components/MediumCard'
 import LargeCard from '../components/LargeCard'
 import Footer from '../components/Footer'
+import {useState, useRef, useEffect} from 'react';
 
 export default function Home({exploreData, cardsData}) {
 
-  const handleScroll = () => {
-    console.log('don\'t forget to do this')
+  const [mouseEntered, setMouseEntered] = useState(false)
+
+  const [currentScroll, setCurrentScroll] = useState(0)
+
+  const ref = useRef();
+  const wheelStop = useRef();
+
+// block the body from scrolling (or any other element)
+useEffect(() => {
+  if (mouseEntered) {
+
+    const cancelWheel = e => wheelStop.current && e.preventDefault()
+    document.body.addEventListener('wheel', cancelWheel, {passive:false})
+    return () => document.body.removeEventListener('wheel', cancelWheel)
+  } 
+}, [mouseEntered])
+
+  const handleScroll = (e) => {
+    console.log(ref.current)
+
+    
+    setCurrentScroll(prev => prev += e.deltaY * .5)
+    if (currentScroll > ref.current.scrollWidth) {
+      setCurrentScroll(ref.current.scrollWidth)
+    } else if (currentScroll < 0) {
+      setCurrentScroll(0)
+    }
+    ref.current.scrollLeft = currentScroll
+
+
+
+
+      // while wheel is moving, do not release the lock to prevent normal scrolling behavior
+      clearTimeout(wheelStop.current)
+      
+      // flag indicating to lock page scrolling (setTimeout returns a number)
+      wheelStop.current = setTimeout(() => {
+        wheelStop.current = false
+      }, 300)
+    
   }
   return (
    <>
@@ -47,17 +86,22 @@ export default function Home({exploreData, cardsData}) {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {exploreData?.map(({img,distance,location}) => (
             <SmallCard key={img} img={img} location={location} distance={distance} />
+            
             ))}
+            
           </div>
         </section>
 
-        <section>
+        <section ref={wheelStop}>
           <h2 className="text-4xl font-semibold py-8">Live Anywhere</h2>
 
-          <div className="flex space-x-3 overflow-scroll scrollbar-hide" onScroll={handleScroll}>
-            {cardsData?.map( ({img, title}) => (
+          <div ref={ref} className="flex space-x-3 overflow-scroll scrollbar-hide"  onWheel={e => handleScroll(e)} onMouseEnter={() => setMouseEntered(true)} onMouseleave={() => setMouseEntered(false)}>
+          {cardsData?.map( ({img, title}) => (
               <MediumCard key={img} img={img} title={title} />
-              ))}
+          ))}
+          {cardsData?.map( ({img, title}) => (
+          <MediumCard key={img} img={img} title={title} />
+          ))}
           </div>
         </section>
 

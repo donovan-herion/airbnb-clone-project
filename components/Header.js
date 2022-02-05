@@ -12,6 +12,7 @@ import 'react-date-range/dist/styles.css'; // main style file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 import { DateRangePicker } from 'react-date-range';
 import { useRouter } from 'next/router';
+import { set } from 'date-fns';
 
 function Header({placeholder}) {
 
@@ -43,6 +44,7 @@ function Header({placeholder}) {
         numberOfGuests,
       }
     })
+    setSearchInput("")
   }
 
 
@@ -59,7 +61,7 @@ function Header({placeholder}) {
           ></Image>
       </div>
 
-      <div className="flex items-center justify-center ml-5 rounded-full py-2 border-2 md:shadow-sm">
+      <div className="flex items-center justify-center ml-5 rounded-full py-2 border-2 md:shadow-sm col-span-2 md:col-span-1">
         <input
           className="flex-grow bg-transparent pl-5 text-gray-600 placeholder-gray-400 outline-none overflow-hidden"
           type="text"
@@ -70,9 +72,9 @@ function Header({placeholder}) {
         <SearchIcon className="hidden h-8 cursor-pointer rounded-full bg-red-400 p-2 text-white md:mx-2 md:inline-flex" />
       </div>
 
-      <div className="flex items-center justify-end space-x-4 text-gray-500">
+      <div className="hidden md:flex items-center justify-end space-x-4 text-gray-500 cursor-pointer">
         <div className="flex justify-between rounded-full md:border-2 p-2">
-          <p className="hidden md:block px-5">Login</p>
+          <p className="hidden md:block px-2">Login</p>
           {/* <MenuIcon className="h-6" /> */}
           <UserCircleIcon className="h-6" />
         </div>
@@ -94,14 +96,15 @@ function Header({placeholder}) {
           <input type="number" min={1} value={numberOfGuests} onChange={e => setNumberOfGuests(e.target.value)} className="w-12 pl-2 text-lg outline-none" />
         </div>
 
-        <div className="flex">
-          <button onClick={() => setSearchInput("")} className="flex-grow text-gray-500">Cancel</button>
-          <button className="flex-grow text-red-400" onClick={search}>Search</button>
+        <div className="flex justify-between mt-5">
+          <button onClick={() => setSearchInput("")} className="w-1/3 bg-gray-200 rounded-md text-gray-500">Close</button>
+          <button className="w-1/3 text-white bg-red-400 rounded-md" onClick={search}>Search</button>
         </div>
       </div>
       }
     </header>
   )
 }
+
 
 export default Header

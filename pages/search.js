@@ -35,7 +35,7 @@ function Search({searchResults}) {
                 </section>
 
                
-            <section className="hidden xl:block xl:min-w-[600px]">
+            <section className="hidden xl:block xl:min-w-[400px] h-[100vh] sticky top-24">
                 <Map searchResults={searchResults} />
             </section>
                

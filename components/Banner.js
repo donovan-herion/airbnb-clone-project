@@ -13,7 +13,7 @@ function Banner() {
          <p className="font-medium text-sm sm:text-lg lg:text-2xl text-center">
           Not Sure where to go ? Perfect.
         </p>
-        <button className="my-3 rounded-full bg-white px-10 py-4 font-bold text-purple-500 shadow-md transition-all hover:shadow-xl active:scale-105">
+        <button className="my-3 rounded-full bg-white px-10 py-4 font-bold text-violet-400   shadow-md transition-all hover:shadow-xl active:scale-105">
           I am Flexible
          </button>
       </div>
